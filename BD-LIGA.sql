@@ -139,6 +139,8 @@ BEGIN
 END $$
 DELIMITER ;
 
+-- TRIGGERS END --
+
 	-- INIT SOME VALUES
 -- INIT PLAYERS
 INSERT INTO `Player` (`PlayerID`, `Name`) VALUES ('1', 'Gracz1'), ('2', 'Gracz2'), ('3', 'Gracz3'), ('4', 'Gracz4')
@@ -237,16 +239,6 @@ INSERT INTO `Player` (`PlayerID`, `Name`) VALUES ('1', 'Gracz1'), ('2', 'Gracz2'
 , ('97', 'Gracz97')
 , ('98', 'Gracz98')
 , ('99', 'Gracz99');
-
-
--- INIT HUESR
-INSERT INTO `Guest` (`GuestID`, `TeamID`) VALUES ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5');
-
--- INIT GUEST
-INSERT INTO `Host` (`HostID`, `TeamID`) VALUES ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5');
-
-
-
 
 
 -- SOME QUERIES
