@@ -4,7 +4,7 @@ USE liga;
 
 CREATE TABLE `Attribution`
 (
-  `AttributionID` int PRIMARY KEY,
+  `AttributionID` int AUTO_INCREMENT PRIMARY KEY,
   `PlayerID` int,
   `SeasonID` int,
   `TeamID` int
@@ -242,8 +242,13 @@ INSERT INTO `Player` (`Name`) VALUES('Druzyna_1_Zawodnik_1'),
 ('Druzyna_5_Zawodnik_17'),
 ('Druzyna_5_Zawodnik_18'),
 ('Druzyna_5_Zawodnik_19'),
-('Druzyna_5_Zawodnik_20'),
-('Zawodnik_Bez_Druzyny');
+('Druzyna_5_Zawodnik_20');
+
+-- INIT SEASON
+INSERT INTO `Season` (`SeasonID`, `SeasonYear`) VALUES(1, 2018);
+INSERT INTO `Season` (`SeasonID`, `SeasonYear`) VALUES(2, 2019);
+
+-- INIT ATTRIBUTION
 
 
 -- INIT SOME VALUES END --
