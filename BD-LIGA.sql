@@ -234,7 +234,9 @@ INSERT INTO `Player` (`Name`) VALUES('Gracz1'),
 ('Gracz97'),
 ('Gracz98'),
 ('Gracz99'),
-('Gracz100');
+('Gracz100'),
+('Krzysio'),
+('Błażejo');
 
 
 -- INIT SOME VALUES END --
