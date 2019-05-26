@@ -89,14 +89,6 @@ ALTER TABLE `Attribution` ADD FOREIGN KEY (`SeasonID`) REFERENCES `Season` (`Sea
 
 ALTER TABLE `Attribution` ADD FOREIGN KEY (`TeamID`) REFERENCES `Team` (`TeamID`);
 
-ALTER TABLE `Guest` ADD FOREIGN KEY (`TeamID`) REFERENCES `Team` (`TeamID`);
-
-ALTER TABLE `Host` ADD FOREIGN KEY (`TeamID`) REFERENCES `Team` (`TeamID`);
-
-ALTER TABLE `Game` ADD FOREIGN KEY (`HostID`) REFERENCES `Host` (`HostID`);
-
-ALTER TABLE `Game` ADD FOREIGN KEY (`GuestID`) REFERENCES `Guest` (`GuestID`);
-
 ALTER TABLE `Game` ADD FOREIGN KEY (`SeasonID`) REFERENCES `Season` (`SeasonID`);
 
 ALTER TABLE `Participation` ADD FOREIGN KEY (`PlayerID`) REFERENCES `Player` (`PlayerID`);
@@ -141,105 +133,111 @@ DELIMITER ;
 
 -- TRIGGERS END --
 
-	-- INIT SOME VALUES
--- INIT PLAYERS
-INSERT INTO `Player` (`PlayerID`, `Name`) VALUES ('1', 'Gracz1'), ('2', 'Gracz2'), ('3', 'Gracz3'), ('4', 'Gracz4')
-, ('5', 'Gracz5')
-, ('6', 'Gracz6')
-, ('7', 'Gracz7')
-, ('8', 'Gracz8')
-, ('9', 'Gracz9')
-, ('10', 'Gracz10')
-, ('11', 'Gracz11')
-, ('12', 'Gracz12')
-, ('13', 'Gracz13')
-, ('14', 'Gracz14')
-, ('15', 'Gracz15')
-, ('16', 'Gracz16')
-, ('17', 'Gracz17')
-, ('18', 'Gracz18')
-, ('19', 'Gracz19')
-, ('20', 'Gracz20')
-, ('21', 'Gracz21')
-, ('22', 'Gracz22')
-, ('23', 'Gracz23')
-, ('24', 'Gracz24')
-, ('25', 'Gracz25')
-, ('26', 'Gracz26')
-, ('27', 'Gracz27')
-, ('28', 'Gracz28')
-, ('29', 'Gracz29')
-, ('30', 'Gracz30')
-, ('31', 'Gracz31')
-, ('32', 'Gracz32')
-, ('33', 'Gracz33')
-, ('34', 'Gracz34')
-, ('35', 'Gracz35')
-, ('36', 'Gracz36')
-, ('37', 'Gracz37')
-, ('38', 'Gracz38')
-, ('39', 'Gracz39')
-, ('40', 'Gracz40')
-, ('41', 'Gracz41')
-, ('42', 'Gracz42')
-, ('43', 'Gracz43')
-, ('44', 'Gracz44')
-, ('45', 'Gracz45')
-, ('46', 'Gracz46')
-, ('47', 'Gracz47')
-, ('48', 'Gracz48')
-, ('49', 'Gracz49')
-, ('50', 'Gracz50')
-, ('51', 'Gracz51')
-, ('52', 'Gracz52')
-, ('53', 'Gracz53')
-, ('54', 'Gracz54')
-, ('55', 'Gracz55')
-, ('56', 'Gracz56')
-, ('57', 'Gracz57')
-, ('58', 'Gracz58')
-, ('59', 'Gracz59')
-, ('60', 'Gracz60')
-, ('61', 'Gracz61')
-, ('62', 'Gracz62')
-, ('63', 'Gracz63')
-, ('64', 'Gracz64')
-, ('65', 'Gracz65')
-, ('66', 'Gracz66')
-, ('67', 'Gracz67')
-, ('68', 'Gracz68')
-, ('69', 'Gracz69')
-, ('70', 'Gracz70')
-, ('71', 'Gracz71')
-, ('72', 'Gracz72')
-, ('73', 'Gracz73')
-, ('74', 'Gracz74')
-, ('75', 'Gracz75')
-, ('76', 'Gracz76')
-, ('77', 'Gracz77')
-, ('78', 'Gracz78')
-, ('79', 'Gracz79')
-, ('80', 'Gracz80')
-, ('81', 'Gracz81')
-, ('82', 'Gracz82')
-, ('83', 'Gracz83')
-, ('84', 'Gracz84')
-, ('85', 'Gracz85')
-, ('86', 'Gracz86')
-, ('87', 'Gracz87')
-, ('88', 'Gracz88')
-, ('89', 'Gracz89')
-, ('90', 'Gracz90')
-, ('91', 'Gracz91')
-, ('92', 'Gracz92')
-, ('93', 'Gracz93')
-, ('94', 'Gracz94')
-, ('95', 'Gracz95')
-, ('96', 'Gracz96')
-, ('97', 'Gracz97')
-, ('98', 'Gracz98')
-, ('99', 'Gracz99');
+-- INIT SOME VALUES BEGIN --
+-- INIT PLAYERS --
+INSERT INTO `Player` (`Name`) VALUES('Gracz1'),
+('Gracz2'),
+('Gracz3'),
+('Gracz4'),
+('Gracz5'),
+('Gracz6'),
+('Gracz7'),
+('Gracz8'),
+('Gracz9'),
+('Gracz10'),
+('Gracz11'),
+('Gracz12'),
+('Gracz13'),
+('Gracz14'),
+('Gracz15'),
+('Gracz16'),
+('Gracz17'),
+('Gracz18'),
+('Gracz19'),
+('Gracz20'),
+('Gracz21'),
+('Gracz22'),
+('Gracz23'),
+('Gracz24'),
+('Gracz25'),
+('Gracz26'),
+('Gracz27'),
+('Gracz28'),
+('Gracz29'),
+('Gracz30'),
+('Gracz31'),
+('Gracz32'),
+('Gracz33'),
+('Gracz34'),
+('Gracz35'),
+('Gracz36'),
+('Gracz37'),
+('Gracz38'),
+('Gracz39'),
+('Gracz40'),
+('Gracz41'),
+('Gracz42'),
+('Gracz43'),
+('Gracz44'),
+('Gracz45'),
+('Gracz46'),
+('Gracz47'),
+('Gracz48'),
+('Gracz49'),
+('Gracz50'),
+('Gracz51'),
+('Gracz52'),
+('Gracz53'),
+('Gracz54'),
+('Gracz55'),
+('Gracz56'),
+('Gracz57'),
+('Gracz58'),
+('Gracz59'),
+('Gracz60'),
+('Gracz61'),
+('Gracz62'),
+('Gracz63'),
+('Gracz64'),
+('Gracz65'),
+('Gracz66'),
+('Gracz67'),
+('Gracz68'),
+('Gracz69'),
+('Gracz70'),
+('Gracz71'),
+('Gracz72'),
+('Gracz73'),
+('Gracz74'),
+('Gracz75'),
+('Gracz76'),
+('Gracz77'),
+('Gracz78'),
+('Gracz79'),
+('Gracz80'),
+('Gracz81'),
+('Gracz82'),
+('Gracz83'),
+('Gracz84'),
+('Gracz85'),
+('Gracz86'),
+('Gracz87'),
+('Gracz88'),
+('Gracz89'),
+('Gracz90'),
+('Gracz91'),
+('Gracz92'),
+('Gracz93'),
+('Gracz94'),
+('Gracz95'),
+('Gracz96'),
+('Gracz97'),
+('Gracz98'),
+('Gracz99'),
+('Gracz100');
 
+
+-- INIT SOME VALUES END --
 
 -- SOME QUERIES
 SELECT * FROM Player;
