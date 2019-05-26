@@ -19,8 +19,8 @@ CREATE TABLE `Team`
 CREATE TABLE `Game`
 (
   `MatchID` int PRIMARY KEY,
-  `HostID` int,
-  `GuestID` int,
+  `HostTeamID` int,
+  `GuestTeamID` int,
   `SeasonID` int,
   `Status` varchar(255),
   `MatchDate` datetime
@@ -40,7 +40,7 @@ CREATE TABLE `Player`
 
 CREATE TABLE `Participation`
 (
-  `ParticipationID` int PRIMARY KEY,
+  `ParticipationID` int AUTO_INCREMENT PRIMARY KEY,
   `PlayerID` int,
   `MatchID` int
 );
@@ -260,11 +260,29 @@ INSERT INTO `Attribution` (`PlayerID`, `SeasonID`, `TeamID`) VALUES(1,1,1),(2,1,
 (81,1,5),(82,1,5),(83,1,5),(84,1,5),(85,1,5),(86,1,5),(87,1,5),(88,1,5),(89,1,5),(90,1,5),
 (91,1,5),(92,1,5),(93,1,5),(94,1,5),(95,1,5),(96,1,5),(97,1,5),(98,1,5),(99,1,5),(100,1,5);
 
+-- INIT PARTICIPATION
+INSERT INTO `Participation` (`PlayerID`, `MatchID`) VALUES
+(1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,1),(10,1),(11,1),
+(21,1),(22,1),(23,1),(24,1),(25,1),(26,1),(27,1),(28,1),(29,1),(30,1),(31,1);
+
+-- INIT GAME
+INSERT INTO `Game` (`MatchID`,`HostTeamID`, `GuestTeamID`, `SeasonID`, `Status`, `MatchDate`) VALUES
+(1, 1, 2, 1, 'in progress', NOW());
+
+
 -- INIT SOME VALUES END --
 
 -- SOME QUERIES
 SELECT * FROM Player;
 SELECT * FROM YellowCard;
+
+SELECT Player.Name, Team.Name, Season.SeasonID FROM Attribution
+JOIN Player ON Player.PlayerID = Attribution.PlayerID
+JOIN Team ON Team.TeamID = Attribution.TeamID
+JOIN Season ON Season.SeasonID = Attribution.SeasonID;
+
+SELECT * FROM Game;
+
 
 -- ENABLE VALIDATION OF FOREIGN KEYS
 SET FOREIGN_KEY_CHECKS = 1;
