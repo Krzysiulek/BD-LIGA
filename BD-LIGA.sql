@@ -134,17 +134,17 @@ END $$
 DELIMITER ;
 	-- GAME FINISH TRIGGER END --
 
-
 	-- YELLOW CARDS TRIGGER BEGIN --
 DELIMITER $$
-CREATE TRIGGER YellowCardReject ON YellowCard
+CREATE TRIGGER odrzuc
+ON PracujePrzy
 FOR insert AS
-	IF (SELECT Count(*) FROM YellowCard p, inserted i WHERE i.IdNau = p.idNau)>3
-		BEGIN
-		ROLLBACK
-END;
-DELIMITER ;
-    
+IF (SELECT Count(PlayerID) FROM YellowCard pp, inserted i WHERE pp.PlayerID = i.PlayerID GROUP BY PlayerID, MatchID) > 1 
+BEGIN
+	ROLLBACK;
+END; 
+
+delimiter ;  
     -- YELLOW CARDS TRIGGER END --
 -- TRIGGERS END --
 
@@ -214,34 +214,41 @@ INSERT INTO `Game` (`MatchID`,`HostTeamID`, `GuestTeamID`, `SeasonID`, `Status`,
 
 -- INIT SOME GOALS BEGIN --
 INSERT INTO `Goal` (`MatchID`, `PlayerID`, `Type`) VALUES
-(1, 3, 2, 'own');
+(1, 3, 'own');
 
 INSERT INTO `Goal` (`MatchID`, `PlayerID`, `Type`) VALUES
-(1, 5, 2, 'normal');
+(1, 5, 'normal');
 
 INSERT INTO `Goal` (`MatchID`, `PlayerID`, `Type`) VALUES
-(1, 5, 2, 'normal');
+(1, 5, 'normal');
 
 INSERT INTO `Goal` (`MatchID`, `PlayerID`, `Type`) VALUES
-(1, 5, 2, 'normal');
+(1, 5, 'normal');
 -- INIT SOME GOALS END --
 
 
 -- INIT SOME YELLOW CARDS BEGIN --
 INSERT INTO `YellowCard` (`MatchID`, `PlayerID`, `CardDate`) VALUES
-(1, 5, NOW());
+(1, 3, NOW());
 
 INSERT INTO `YellowCard` (`MatchID`, `PlayerID`, `CardDate`) VALUES
-(2, 5, NOW());
-
-INSERT INTO `YellowCard` (`MatchID`, `PlayerID`, `CardDate`) VALUES
-(3, 5, NOW());
+(1, 3, NOW());
 
 INSERT INTO `YellowCard` (`MatchID`, `PlayerID`, `CardDate`) VALUES
 (1, 5, NOW());
 
 INSERT INTO `YellowCard` (`MatchID`, `PlayerID`, `CardDate`) VALUES
-(1, 5, NOW());
+(1, 1, NOW());
+
+INSERT INTO `YellowCard` (`MatchID`, `PlayerID`, `CardDate`) VALUES
+(1, 3, NOW());
+
+INSERT INTO `YellowCard` (`MatchID`, `PlayerID`, `CardDate`) VALUES
+(2, 3, NOW());
+
+INSERT INTO `YellowCard` (`MatchID`, `PlayerID`, `CardDate`) VALUES
+(2, 3, NOW());
+
 
 -- INIT SOME YELLOW CARDS END --
 
@@ -261,6 +268,11 @@ JOIN Team ON Team.TeamID = Attribution.TeamID
 JOIN Season ON Season.SeasonID = Attribution.SeasonID;
 
 SELECT * FROM Game;
+SELECT PlayerID,COUNT(PlayerID) FROM YellowCard WHERE YellowCard.PlayerID = 3 GROUP BY MatchID, PlayerID ;
+SELECT MatchID, PlayerID, Count(PlayerID) FROM YellowCard
+GROUP BY MatchID, PlayerID;
+
+SELECT PlayerID, Count(PlayerID) FROM YellowCard GROUP BY MatchID, PlayerID;
 
 
 -- ENABLE VALIDATION OF FOREIGN KEYS
