@@ -30,8 +30,8 @@ INSERT INTO Player ([Name]) VALUES('Druzyna_1_Zawodnik_1'),
 
 
 -- INIT SEASON BEGIN --
-INSERT INTO Season ([SeasonID], [SeasonYear]) VALUES(1, 2018);
-INSERT INTO Season ([SeasonID], [SeasonYear]) VALUES(2, 2019);
+INSERT INTO Season ([SeasonYear]) VALUES(2018);
+INSERT INTO Season ([SeasonYear]) VALUES(2019);
 -- INIT SEASON END --
 
 
@@ -57,11 +57,11 @@ INSERT INTO Participation ([PlayerID], [MatchID]) VALUES
 
 
 -- INIT GAME BEGIN --
-INSERT INTO Game ([MatchID],[HostTeamID], [GuestTeamID], [SeasonID], [Status], [MatchDate]) VALUES
-(1, 1, 2, 1, 'in progress', GETDATE());
+INSERT INTO Game ([HostTeamID], [GuestTeamID], [SeasonID], [Status], [MatchDate]) VALUES
+(1, 2, 1, 'in progress', GETDATE());
 
-INSERT INTO Game ([MatchID],[HostTeamID], [GuestTeamID], [SeasonID], [Status], [MatchDate]) VALUES
-(2, 2, 1, 1, 'end', GETDATE());
+INSERT INTO Game ([HostTeamID], [GuestTeamID], [SeasonID], [Status], [MatchDate]) VALUES
+( 2, 1, 1, 'end', GETDATE());
 -- INIT GAME END --
 
 
