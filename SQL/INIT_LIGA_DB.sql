@@ -1,3 +1,7 @@
+-- DROP DATABASE liga;
+CREATE DATABASE liga;
+USE liga;
+
 CREATE TABLE Attribution
 (
   [AttributionID] int IDENTITY PRIMARY KEY,
@@ -14,7 +18,7 @@ CREATE TABLE Team
 
 CREATE TABLE Game
 (
-  [MatchID] int PRIMARY KEY,
+  [MatchID] int IDENTITY PRIMARY KEY,
   [HostTeamID] int,
   [GuestTeamID] int,
   [SeasonID] int,
@@ -24,7 +28,7 @@ CREATE TABLE Game
 
 CREATE TABLE Season
 (
-  [SeasonID] int PRIMARY KEY,
+  [SeasonID] int IDENTITY PRIMARY KEY,
   [SeasonYear] int
 );
 
@@ -41,9 +45,10 @@ CREATE TABLE Participation
   [MatchID] int
 );
 
+
 CREATE TABLE RedCard
 (
-  [RedCardID] int PRIMARY KEY,
+  [RedCardID] int IDENTITY PRIMARY KEY,
   [MatchID] int,
   [PlayerID] int,
   [CardDate] datetime2(0)
@@ -67,7 +72,7 @@ CREATE TABLE Goal
 
 CREATE TABLE Stats
 (
-  [StatsID] int PRIMARY KEY,
+  [StatsID] int IDENTITY PRIMARY KEY,
   [TeamID] int,
   [SeasonID] int,
   [LostMatches] int,
