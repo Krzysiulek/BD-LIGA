@@ -1,6 +1,6 @@
 -- DROP DATABASE liga;
-CREATE DATABASE liga;
-USE liga;
+-- CREATE DATABASE liga;
+-- USE liga;
 
 CREATE TABLE Attribution
 (
