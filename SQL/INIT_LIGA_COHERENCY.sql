@@ -7,31 +7,81 @@ as
 begin
 	Declare @MatchID int, @HostTeamID int, @GuestTeamID int, @SeasonID int, @GameStatus varchar(20),
 			@LostMatches int, @WonMatches int, @GoalsAchived int, @GoalsLost int,
-			@DrawMatches int, @PointsAchived int
+			@DrawMatches int, @PointsAchived int, @HostGoals int, @GuestGoals int
 
 			select @MatchID = MatchID from inserted
 			select @GameStatus = Status from inserted
 			select @HostTeamID = HostTeamID from inserted
 			select @GuestTeamID = GuestTeamID from inserted
 			select @SeasonID = SeasonID from inserted
-			
+			select @HostGoals = [dbo][goalsConceaded](@MatchID, @GuestTeamID)
+			select @GuestGoals = [dbo][goalsConceaded](@MatchID, @HostTeamID)
+
 
 			print @HostTeamID
 			print @GuestTeamID
 			print @SeasonID
 			print @GameStatus
+			print @HostGoals
+			print @GuestGoals
 			
+			
+			if @GameStatus = 'end'
 			--wygrywa gosc
-			if @GameStatus = 'end' AND ([dbo][goalsConceaded](@MatchID, @HostTeam) > [dbo][goalsConceaded](@MatchID, @GuestTeam))
-				UPDATE Stats 
-				SET 
-				WHERE TeamID = @HostTeamID
+				if (@GuestGoals > @HostGoals)
+					UPDATE Stats 
+					SET 
+						Stats.WonMatches = Stats.WonMatches + 1
+						Stats.GoalsAchived = Stats.GoalsAchived + @GuestGoals
+						Stats.GoalsLost = Stats.GoalsLost + @HostGoals
+						Stats.PointsAchived = Stats.PointsAchived + 3
+					WHERE TeamID = @GuestTeamID
+
+					UPDATE Stats 
+					SET 
+						Stats.LostMatches = Stats.LostMatches + 1
+						Stats.GoalsAchived = Stats.GoalsAchived + @HostGoals
+						Stats.GoalsLost = Stats.GoalsLost + @GuestGoals
+					WHERE TeamID = @HostTeamID
+
+					BREAK;
 			--wygrywa gospodarz
+				if (@GuestGoals < @HostGoals)
+					UPDATE Stats 
+					SET 
+						Stats.WonMatches = Stats.WonMatches + 1
+						Stats.GoalsAchived = Stats.GoalsAchived + @HostGoals
+						Stats.GoalsLost = Stats.GoalsLost + @GuestGoals
+						Stats.PointsAchived = Stats.PointsAchived + 3
+					WHERE TeamID = @HostTeamID
 
+					UPDATE Stats 
+					SET 
+						Stats.LostMatches = Stats.LostMatches + 1
+						Stats.GoalsAchived = Stats.GoalsAchived + @GuestGoals
+						Stats.GoalsLost = Stats.GoalsLost + @HostGoals
+					WHERE TeamID = @GuestTeamID
 
+					BREAK;
 			--remis
+				if (@GuestGoals = @HostGoals)
+					UPDATE Stats 
+					SET 
+						Stats.DrawMatches = Stats.DrawMatches + 1
+						Stats.GoalsAchived = Stats.GoalsAchived + @GuestGoals
+						Stats.GoalsLost = Stats.GoalsLost + @HostGoals
+						Stats.PointsAchived = Stats.PointsAchived + 1
+					WHERE TeamID = @GuestTeamID
 
+					UPDATE Stats 
+					SET 
+						Stats.DrawMatches = Stats.DrawMatches + 1
+						Stats.GoalsAchived = Stats.GoalsAchived + @GuestGoals
+						Stats.GoalsLost = Stats.GoalsLost + @HostGoals
+						Stats.PointsAchived = Stats.PointsAchived + 1
+					WHERE TeamID = @HostTeamID
 
+					BREAK;
 
 		print 'dupa'
 
