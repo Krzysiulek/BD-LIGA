@@ -5,17 +5,31 @@ create trigger STATS_update on Game
 after update
 as
 begin
-	Declare @TeamID int, @SeasonID int, @GameStatus varchar
+	Declare @MatchID int, @HostTeamID int, @GuestTeamID int, @SeasonID int, @GameStatus varchar(20),
+			@LostMatches int, @WonMatches int, @GoalsAchived int, @GoalsLost int,
+			@DrawMatches int, @PointsAchived int
 
-			select @TeamID = HostTeamID from inserted
-			select @SeasonID = SeasonID from inserted
+			select @MatchID = MatchID from inserted
 			select @GameStatus = Status from inserted
+			select @HostTeamID = HostTeamID from inserted
+			select @GuestTeamID = GuestTeamID from inserted
+			select @SeasonID = SeasonID from inserted
+			
 
-			print @TeamID
+			print @HostTeamID
+			print @GuestTeamID
 			print @SeasonID
 			print @GameStatus
 			
+			--wygrywa gosc
+			if @GameStatus = 'end' AND ([dbo][goalsConceaded](@MatchID, @HostTeam) > [dbo][goalsConceaded](@MatchID, @GuestTeam))
+				UPDATE Stats 
+				SET 
+				WHERE TeamID = @HostTeamID
+			--wygrywa gospodarz
 
+
+			--remis
 
 
 

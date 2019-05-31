@@ -19,4 +19,4 @@ Group By Goal.PlayerID, Goal.Type
 select COUNT(*) as bramki from Game
 JOIN Goal ON Game.MatchID = Goal.MatchID
 JOIN Attribution ON Goal.PlayerID = Attribution.PlayerID
-WHERE Game.MatchID = 1 AND (Goal.Type = 'own' AND Game.HostTeamID = 1)
+WHERE Game.MatchID = 1 AND ((Goal.Type = 'own' AND Attribution.TeamID = 1) OR (Goal.Type = 'normal' AND Attribution.TeamID != 1))

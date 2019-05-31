@@ -1,7 +1,7 @@
 DROP FUNCTION goalsInGame
 USE liga
-GO
 
+GO
 CREATE FUNCTION goalsInGame(@MatchID as int)
 Returns int
 as
@@ -15,14 +15,16 @@ begin
 	RETURN @value
 end
 
+GO
 CREATE FUNCTION goalsConceaded(@MatchID as int, @TeamID as int)
 Returns int
 as
 begin
 	DECLARE @value as int
-	Select @value = COUNT(*)
-
-
+	Select @value =  COUNT(*) from Game
+	JOIN Goal ON Game.MatchID = Goal.MatchID
+	JOIN Attribution ON Goal.PlayerID = Attribution.PlayerID
+	WHERE Game.MatchID = @MatchID AND ((Goal.Type = 'own' AND Attribution.TeamID = @TeamID) OR (Goal.Type = 'normal' AND Attribution.TeamID != @TeamID))
 
 	RETURN @value
 end
