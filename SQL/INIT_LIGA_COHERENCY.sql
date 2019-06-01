@@ -13,7 +13,7 @@ begin
 			@DrawMatches int, @PointsAchived int, @HostGoals int, @GuestGoals int
 
 			select @MatchID = MatchID from inserted
-			select @GameStatus = Status from inserted
+			select @GameStatus = GameStatus from inserted
 			select @HostTeamID = HostTeamID from inserted
 			select @GuestTeamID = GuestTeamID from inserted
 			select @SeasonID = SeasonID from inserted
@@ -30,8 +30,10 @@ begin
 			
 			
 			if @GameStatus = 'end'
+			BEGIN
 			--wygrywa gosc
 				if (@GuestGoals > @HostGoals)
+				BEGIN
 					UPDATE Stats 
 					SET 
 						Stats.WonMatches = Stats.WonMatches + 1,
@@ -46,8 +48,12 @@ begin
 						Stats.GoalsAchived = Stats.GoalsAchived + @HostGoals,
 						Stats.GoalsLost = Stats.GoalsLost + @GuestGoals
 					WHERE TeamID = @HostTeamID
+
+					print 'Guest Won!'
+				END
 			--wygrywa gospodarz
 				if (@GuestGoals < @HostGoals)
+				BEGIN
 					UPDATE Stats 
 					SET 
 						Stats.WonMatches = Stats.WonMatches + 1,
@@ -63,8 +69,11 @@ begin
 						Stats.GoalsLost = Stats.GoalsLost + @HostGoals
 					WHERE TeamID = @GuestTeamID
 
+					print 'Host Won!'
+				END
 			--remis
 				if (@GuestGoals = @HostGoals)
+				BEGIN
 					UPDATE Stats 
 					SET 
 						Stats.DrawMatches = Stats.DrawMatches + 1,
@@ -81,15 +90,15 @@ begin
 						Stats.PointsAchived = Stats.PointsAchived + 1
 					WHERE TeamID = @HostTeamID
 
-
+					print 'Tie!'
+				END
+			END
 		print 'dupa'
 
 end
 go
 
-UPDATE Game Set Game.MatchDate = GETDATE() WHERE Game.MatchID ='1'
-DROP TRIGGER STATS_update
-
+--DROP TRIGGER STATS_update
 
 create trigger YC_abort on YellowCard
 after insert

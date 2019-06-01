@@ -57,11 +57,20 @@ INSERT INTO Participation ([PlayerID], [MatchID]) VALUES
 
 
 -- INIT GAME BEGIN --
-INSERT INTO Game ([HostTeamID], [GuestTeamID], [SeasonID], [Status], [MatchDate]) VALUES
+INSERT INTO Game ([HostTeamID], [GuestTeamID], [SeasonID], [GameStatus], [MatchDate]) VALUES
 (1, 2, 1, 'in progress', GETDATE());
 
-INSERT INTO Game ([HostTeamID], [GuestTeamID], [SeasonID], [Status], [MatchDate]) VALUES
+INSERT INTO Game ([HostTeamID], [GuestTeamID], [SeasonID], [GameStatus], [MatchDate]) VALUES
 ( 2, 1, 1, 'end', GETDATE());
+
+INSERT INTO Game ([HostTeamID], [GuestTeamID], [SeasonID], [GameStatus], [MatchDate]) VALUES
+( 3, 4, 1, 'TBA', GETDATE());
+
+INSERT INTO Game ([HostTeamID], [GuestTeamID], [SeasonID], [GameStatus], [MatchDate]) VALUES
+( 1, 5, 1, 'TBA', GETDATE());
+
+INSERT INTO Game ([HostTeamID], [GuestTeamID], [SeasonID], [GameStatus], [MatchDate]) VALUES
+( 2, 3, 1, 'TBA', GETDATE());
 -- INIT GAME END --
 
 
@@ -104,7 +113,14 @@ INSERT INTO YellowCard ([MatchID], [PlayerID], [CardDate]) VALUES
 -- INIT SOME YELLOW CARDS END --
 
 --INIT STATS BEGIN--
-
-
-
+INSERT INTO STATS ([TeamID], [SeasonID], [LostMatches], [WonMatches], [GoalsAchived], [GoalsLost], [DrawMatches], [PointsAchived]) VALUES
+(1,1,0,0,0,0,0,0);
+INSERT INTO STATS ([TeamID], [SeasonID], [LostMatches], [WonMatches], [GoalsAchived], [GoalsLost], [DrawMatches], [PointsAchived]) VALUES
+(2,1,0,0,0,0,0,0);
+INSERT INTO STATS ([TeamID], [SeasonID], [LostMatches], [WonMatches], [GoalsAchived], [GoalsLost], [DrawMatches], [PointsAchived]) VALUES
+(3,1,0,0,0,0,0,0);
+INSERT INTO STATS ([TeamID], [SeasonID], [LostMatches], [WonMatches], [GoalsAchived], [GoalsLost], [DrawMatches], [PointsAchived]) VALUES
+(4,1,0,0,0,0,0,0);
+INSERT INTO STATS ([TeamID], [SeasonID], [LostMatches], [WonMatches], [GoalsAchived], [GoalsLost], [DrawMatches], [PointsAchived]) VALUES
+(5,1,0,0,0,0,0,0);
 --INIT STATS END--
