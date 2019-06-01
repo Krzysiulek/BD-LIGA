@@ -5,3 +5,5 @@ select * from Goal
 
 INSERT INTO Goal ([MatchID], [PlayerID], [Type]) VALUES
 (1, 23, 'normal');
+
+select * from Stats

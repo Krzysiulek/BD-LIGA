@@ -101,6 +101,10 @@ INSERT INTO YellowCard ([MatchID], [PlayerID], [CardDate]) VALUES
 
 INSERT INTO YellowCard ([MatchID], [PlayerID], [CardDate]) VALUES
 (2, 3, GETDATE());
-
-
 -- INIT SOME YELLOW CARDS END --
+
+--INIT STATS BEGIN--
+
+
+
+--INIT STATS END--

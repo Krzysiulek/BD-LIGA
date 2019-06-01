@@ -1,6 +1,9 @@
 -- warunki spojnosci
 -- DROP TRIGGER nazwa_triggera
 -- Gracz nie moze dostac wiecej niz 1 czerwonej i dwoch zoltych kartek
+
+use liga
+go
 create trigger STATS_update on Game
 after update
 as
@@ -14,8 +17,8 @@ begin
 			select @HostTeamID = HostTeamID from inserted
 			select @GuestTeamID = GuestTeamID from inserted
 			select @SeasonID = SeasonID from inserted
-			select @HostGoals = [dbo][goalsConceaded](@MatchID, @GuestTeamID)
-			select @GuestGoals = [dbo][goalsConceaded](@MatchID, @HostTeamID)
+			select @HostGoals = [dbo].[goalsConceaded](@MatchID, @GuestTeamID)
+			select @GuestGoals = [dbo].[goalsConceaded](@MatchID, @HostTeamID)
 
 
 			print @HostTeamID
@@ -31,57 +34,53 @@ begin
 				if (@GuestGoals > @HostGoals)
 					UPDATE Stats 
 					SET 
-						Stats.WonMatches = Stats.WonMatches + 1
-						Stats.GoalsAchived = Stats.GoalsAchived + @GuestGoals
-						Stats.GoalsLost = Stats.GoalsLost + @HostGoals
+						Stats.WonMatches = Stats.WonMatches + 1,
+						Stats.GoalsAchived = Stats.GoalsAchived + @GuestGoals,
+						Stats.GoalsLost = Stats.GoalsLost + @HostGoals,
 						Stats.PointsAchived = Stats.PointsAchived + 3
 					WHERE TeamID = @GuestTeamID
 
 					UPDATE Stats 
 					SET 
-						Stats.LostMatches = Stats.LostMatches + 1
-						Stats.GoalsAchived = Stats.GoalsAchived + @HostGoals
+						Stats.LostMatches = Stats.LostMatches + 1,
+						Stats.GoalsAchived = Stats.GoalsAchived + @HostGoals,
 						Stats.GoalsLost = Stats.GoalsLost + @GuestGoals
 					WHERE TeamID = @HostTeamID
-
-					BREAK;
 			--wygrywa gospodarz
 				if (@GuestGoals < @HostGoals)
 					UPDATE Stats 
 					SET 
-						Stats.WonMatches = Stats.WonMatches + 1
-						Stats.GoalsAchived = Stats.GoalsAchived + @HostGoals
-						Stats.GoalsLost = Stats.GoalsLost + @GuestGoals
+						Stats.WonMatches = Stats.WonMatches + 1,
+						Stats.GoalsAchived = Stats.GoalsAchived + @HostGoals,
+						Stats.GoalsLost = Stats.GoalsLost + @GuestGoals,
 						Stats.PointsAchived = Stats.PointsAchived + 3
 					WHERE TeamID = @HostTeamID
 
 					UPDATE Stats 
 					SET 
-						Stats.LostMatches = Stats.LostMatches + 1
-						Stats.GoalsAchived = Stats.GoalsAchived + @GuestGoals
+						Stats.LostMatches = Stats.LostMatches + 1,
+						Stats.GoalsAchived = Stats.GoalsAchived + @GuestGoals,
 						Stats.GoalsLost = Stats.GoalsLost + @HostGoals
 					WHERE TeamID = @GuestTeamID
 
-					BREAK;
 			--remis
 				if (@GuestGoals = @HostGoals)
 					UPDATE Stats 
 					SET 
-						Stats.DrawMatches = Stats.DrawMatches + 1
-						Stats.GoalsAchived = Stats.GoalsAchived + @GuestGoals
-						Stats.GoalsLost = Stats.GoalsLost + @HostGoals
+						Stats.DrawMatches = Stats.DrawMatches + 1,
+						Stats.GoalsAchived = Stats.GoalsAchived + @GuestGoals,
+						Stats.GoalsLost = Stats.GoalsLost + @HostGoals,
 						Stats.PointsAchived = Stats.PointsAchived + 1
 					WHERE TeamID = @GuestTeamID
 
 					UPDATE Stats 
 					SET 
-						Stats.DrawMatches = Stats.DrawMatches + 1
-						Stats.GoalsAchived = Stats.GoalsAchived + @GuestGoals
-						Stats.GoalsLost = Stats.GoalsLost + @HostGoals
+						Stats.DrawMatches = Stats.DrawMatches + 1,
+						Stats.GoalsAchived = Stats.GoalsAchived + @GuestGoals,
+						Stats.GoalsLost = Stats.GoalsLost + @HostGoals,
 						Stats.PointsAchived = Stats.PointsAchived + 1
 					WHERE TeamID = @HostTeamID
 
-					BREAK;
 
 		print 'dupa'
 
