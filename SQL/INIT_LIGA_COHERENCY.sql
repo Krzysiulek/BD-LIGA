@@ -93,7 +93,7 @@ begin
 					print 'Tie!'
 				END
 			END
-		print 'dupa'
+		print 'Something Wrong!'
 
 end
 go
